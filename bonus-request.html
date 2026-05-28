@@ -483,6 +483,12 @@ document.querySelectorAll('.radio-row').forEach(function(row) {
 function g(el) { return el ? el.value.trim() : ''; }
 function gId(id) { return g(document.getElementById(id)); }
 function getField(label, value) { return value ? label + ': ' + value + '\n' : ''; }
+function fmtDate(val) {
+  if (!val) return '';
+  var parts = val.split('-');
+  if (parts.length !== 3) return val;
+  return parts[1] + '/' + parts[2] + '/' + parts[0];
+}
 
 // Submit
 function submitForm() {
@@ -517,14 +523,14 @@ function submitForm() {
   body += getField('Submitting manager', gId('mgr-name'));
   body += getField('Department / team', g(selects[0]));
   body += getField('LT member', g(selects[1]));
-  body += getField('Date submitted', gId('date-submitted'));
+  body += getField('Date submitted', fmtDate(gId('date-submitted')));
 
   body += '\n========  LEAVE REFERENCE  ========\n\n';
   body += getField('Employee on leave', g(inputs[2]));
   body += getField('Role / title', g(inputs[3]));
   body += getField('P&C Partner', g(inputs[4]));
-  body += getField('Leave start', gId('leave-start'));
-  body += getField('Leave end', gId('leave-end'));
+  body += getField('Leave start', fmtDate(gId('leave-start')));
+  body += getField('Leave end', fmtDate(gId('leave-end')));
   body += getField('Total duration', gId('leave-duration'));
 
   body += '\n========  ABSORPTION  ========\n\n';
@@ -540,6 +546,7 @@ function submitForm() {
 
   body += '\n========  LT ALIGNMENT  ========\n\n';
   body += getField('LT sponsor', g(inputs[inputs.length - 2]));
+  body += getField('LT sign-off date', fmtDate(g(document.querySelector('.approval-box input[type=date]'))));
   body += getField('LT decision', ltDecision);
   body += getField('Approval notes', g(textareas[textareas.length - 1]));
 
@@ -548,7 +555,7 @@ function submitForm() {
 
   var mgr = gId('mgr-name');
   var dt = gId('date-submitted');
-  var subject = 'Leave Absorption Bonus Request' + (mgr ? ': ' + mgr : '') + (dt ? ' (' + dt + ')' : '');
+  var subject = 'Leave Absorption Bonus Request' + (mgr ? ': ' + mgr : '') + (dt ? ' (' + fmtDate(dt) + ')' : '');
   window.location.href = 'mailto:melissa@uponafarm.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
   // Show success
