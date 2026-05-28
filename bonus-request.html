@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave Absorption Bonus Request, Once Upon a Farm, PBC</title>
+<link href="https://fonts.googleapis.com/css2?family=Neue+Kabel:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#fffdf3;--blue:#4f89be;--blue-dark:#2f6a9e;--blue-deeper:#1d4f78;
+  --blue-light:#e8f2fa;--blue-border:#b8d4eb;--orange:#ec6946;
+  --orange-light:#fdf0ec;--orange-border:#f5c4b5;--text:#1a2a38;
+  --text-muted:#5a7080;--text-light:#8aa0b0;--border:#d0dfe9;--white:#ffffff;
+}
+body{background:#fffdf3;font-family:'Neue Kabel',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;color:#1a2a38;font-size:15px;line-height:1.6;min-height:100vh}
+
+/* HEADER */
+.site-header{background:#1d4f78;color:#fff;padding:0 2.5rem;display:flex;align-items:center;min-height:72px}
+.header-title{font-size:22px;font-weight:500;letter-spacing:.01em;color:#fff}
+
+/* PAGE */
+.page-body{max-width:800px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+
+/* HERO CALLOUT */
+.hero-callout{background:#1d4f78;border-radius:12px;padding:1.6rem 1.8rem;margin-bottom:1.5rem;color:#fff;display:flex;gap:18px;align-items:flex-start}
+.hero-star{font-size:28px;flex-shrink:0;margin-top:2px}
+.hero-callout h2{font-size:20px;font-weight:700;margin-bottom:6px;color:#fff;letter-spacing:-.01em}
+.hero-callout p{font-size:14px;color:rgba(255,255,255,.78);line-height:1.6;margin:0}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:3px 12px;font-size:12px;font-weight:600;color:rgba(255,255,255,.9);margin-top:10px;letter-spacing:.02em}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#ec6946;flex-shrink:0}
+
+/* ALERT */
+.alert{background:#e8f2fa;border-left:4px solid #4f89be;border-radius:8px;padding:1.1rem 1.4rem;margin-bottom:2rem;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;color:#1a2a38}
+.alert-icon{flex-shrink:0;width:22px;height:22px;border:2px solid #4f89be;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#4f89be;margin-top:1px}
+.alert a,.alert strong{color:#2f6a9e;font-weight:600}
+
+/* ELIGIBILITY GATE */
+.eligibility-card{background:#fff;border:1.5px solid #b8d4eb;border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.25rem}
+.elig-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4f89be;display:flex;align-items:center;gap:7px;margin-bottom:1rem}
+.elig-checks{display:flex;flex-direction:column;gap:9px}
+.elig-row{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;color:#1a2a38;cursor:pointer}
+.elig-row input[type=checkbox]{width:16px;height:16px;margin-top:3px;flex-shrink:0;accent-color:#4f89be;cursor:pointer}
+.inelig-msg{display:none;margin-top:1rem;background:#fdf0ec;border:1px solid #f5c4b5;border-radius:8px;padding:10px 14px;font-size:13px;color:#7a3010;line-height:1.55}
+
+/* SECTIONS */
+.form-section{background:#fff;border:1px solid #d0dfe9;border-radius:14px;padding:1.6rem 1.8rem;margin-bottom:1.25rem;transition:opacity .2s}
+.form-section.locked{opacity:.38;pointer-events:none}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4f89be;display:flex;align-items:center;gap:7px;margin-bottom:1.3rem}
+.section-dot{width:7px;height:7px;border-radius:50%;background:#ec6946;flex-shrink:0}
+
+/* GRIDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+
+/* FIELDS */
+.field{margin-bottom:1rem}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;font-weight:500;color:#1a2a38;margin-bottom:5px}
+.field label .req{color:#ec6946;margin-left:2px}
+.field .helper{font-size:12px;color:#5a7080;margin-top:4px;line-height:1.4}
+
+/* INPUTS */
+input[type=text],input[type=email],input[type=date],input[type=number],select,textarea{
+  width:100%;padding:9px 12px;border:1px solid #d0dfe9;border-radius:6px;
+  font-family:'Neue Kabel',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:14px;color:#1a2a38;background:#fff;
+  transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;appearance:none
+}
+input::placeholder,textarea::placeholder{color:#8aa0b0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#4f89be;box-shadow:0 0 0 3px rgba(79,137,190,.15)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7080' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
+textarea{resize:vertical;min-height:88px;line-height:1.5}
+
+/* ABSORBER ROWS */
+.absorber-list{display:flex;flex-direction:column;gap:8px;margin-bottom:.75rem}
+.absorber-row{display:grid;grid-template-columns:1fr 1fr auto;gap:.75rem;align-items:end;background:#f5f8fc;border:1px solid #d0dfe9;border-radius:8px;padding:.85rem .9rem}
+.absorber-row .field{margin:0}
+.absorber-row .field label{font-size:12px}
+.absorber-remove{background:none;border:1px solid #d0dfe9;border-radius:6px;color:#8aa0b0;font-size:16px;cursor:pointer;width:34px;height:34px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;font-family:inherit}
+.absorber-remove:hover{background:#fdf0ec;border-color:#f5c4b5;color:#c0392b}
+.add-absorber{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed #b8d4eb;border-radius:6px;color:#4f89be;font-family:inherit;font-size:13px;font-weight:600;padding:7px 14px;cursor:pointer;transition:all .15s}
+.add-absorber:hover{background:#e8f2fa;border-color:#4f89be}
+
+/* BONUS WIDGET */
+.bonus-panel{background:#1d4f78;border-radius:12px;padding:1.4rem 1.6rem;margin-bottom:1rem}
+.bonus-panel-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.75rem}
+.bonus-row{display:flex;align-items:center;gap:10px}
+.bonus-symbol{font-size:26px;font-weight:700;color:rgba(255,255,255,.7)}
+.bonus-input{font-family:'Neue Kabel',-apple-system,sans-serif!important;font-size:26px!important;font-weight:700!important;color:#fff!important;background:rgba(255,255,255,.1)!important;border:1.5px solid rgba(255,255,255,.2)!important;border-radius:8px!important;padding:8px 14px!important;width:100%!important;transition:border-color .15s!important}
+.bonus-input::placeholder{color:rgba(255,255,255,.3)!important}
+.bonus-input:focus{border-color:rgba(255,255,255,.55)!important;background:rgba(255,255,255,.15)!important;box-shadow:none!important;outline:none!important}
+.bonus-cap{background:#ec6946;color:#fff;border-radius:6px;padding:5px 11px;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.bonus-cap-warn{display:none;margin-top:8px;font-size:13px;color:#f9c97d}
+.bonus-disclaimer{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 13px;margin-top:14px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.55}
+.bonus-disclaimer strong{color:rgba(255,255,255,.92)}
+
+/* INFO NOTE */
+.info-note{background:#fdf0ec;border:1px solid #f5c4b5;border-radius:6px;padding:10px 13px;font-size:13px;color:#7a3010;line-height:1.5;margin-top:.75rem}
+.info-note strong{color:#5a2000}
+
+/* COND BLOCK */
+.cond-block{background:#fdf0ec;border:1px solid #f5c4b5;border-radius:10px;padding:1.2rem 1.4rem;margin-top:.85rem;display:none}
+.cond-block.show{display:block}
+.cond-block .section-label{color:#ec6946}
+
+/* APPROVAL */
+.approval-box{border:1px dashed #d0dfe9;border-radius:10px;padding:1rem 1.2rem}
+.approval-box-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#5a7080;margin-bottom:10px}
+.radio-group{display:flex;flex-direction:column;gap:7px}
+.radio-row{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1px solid #d0dfe9;border-radius:6px;background:#fff;cursor:pointer;transition:background .1s,border-color .1s;font-size:14px;line-height:1.4}
+.radio-row:hover{background:#e8f2fa;border-color:#4f89be}
+.radio-row.selected{background:#e8f2fa;border-color:#4f89be}
+.radio-row input[type=radio]{width:auto;padding:0;margin-top:3px;flex-shrink:0;accent-color:#4f89be;border:none;box-shadow:none}
+
+/* FOOTER */
+.form-footer{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid #d0dfe9;flex-wrap:wrap}
+.footer-note{font-size:12px;color:#5a7080;line-height:1.55;max-width:420px}
+.footer-note a{color:#4f89be;font-weight:600;text-decoration:none}
+.footer-note a:hover{text-decoration:underline}
+.btn-submit{background:#4f89be;color:#fff;border:none;padding:11px 28px;border-radius:10px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;white-space:nowrap}
+.btn-submit:hover{background:#2f6a9e}
+.btn-submit:active{transform:scale(.98)}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:3.5rem 1rem}
+.success-icon{font-size:52px;margin-bottom:1rem}
+.success-screen h2{font-size:26px;font-weight:700;color:#1d4f78;margin-bottom:.75rem}
+.success-screen p{font-size:15px;color:#5a7080;max-width:460px;margin:0 auto 1.75rem;line-height:1.7}
+.success-steps{background:#fff;border:1px solid #d0dfe9;border-radius:12px;padding:1.3rem 1.6rem;max-width:420px;margin:0 auto;text-align:left}
+.success-steps h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4f89be;margin-bottom:.85rem}
+.success-step{display:flex;align-items:flex-start;gap:12px;font-size:13.5px;color:#1a2a38;padding:.5rem 0;border-bottom:1px solid #f0ece4}
+.success-step:last-child{border-bottom:none}
+.step-num{width:22px;height:22px;border-radius:50%;background:#e8f2fa;color:#4f89be;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+@media(max-width:600px){
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .site-header{padding:0 1.2rem}
+  .page-body{padding:1.5rem 1rem 3rem}
+  .form-section{padding:1.2rem 1.1rem}
+  .absorber-row{grid-template-columns:1fr;gap:.5rem}
+  .bonus-row{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-title">Leave Absorption Bonus Request</div>
+</header>
+
+<main class="page-body" id="pageBody">
+
+  <!-- Hero -->
+  <div class="hero-callout">
+    <div class="hero-star">&#9733;</div>
+    <div>
+      <h2>Your team stepped up. Let's recognize it.</h2>
+      <p>If your team absorbed a parental leave without external support, you may request a one-time Leave Absorption Bonus for the individual or individuals who carried the additional load.</p>
+      <div class="hero-badge"><span class="dot"></span>Tier I only &nbsp;&#183;&nbsp; Up to $10,000 &nbsp;&#183;&nbsp; Post-leave submission</div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div class="alert">
+    <div class="alert-icon">!</div>
+    <div>
+      <strong>We're here to help you navigate this smoothly.</strong> Before submitting, please review the
+      <a href="https://thefarm.onceuponafarmorganics.com/content/834/loas" target="_blank">Leaves of Absence Portal on The Farm</a> and connect with your
+      <strong>People &amp; Culture Partner</strong>. Important: your <strong>LT member should be aligned on this request before you hit submit</strong>, as final bonus decisions are made together with you, your LT member, Finance, and your P&amp;C Partner.
+    </div>
+  </div>
+
+  <!-- Eligibility Gate -->
+  <div class="eligibility-card">
+    <div class="elig-label"><span class="section-dot"></span>Confirm eligibility before you begin</div>
+    <div class="elig-checks">
+      <label class="elig-row">
+        <input type="checkbox" id="elig1" onchange="checkEligibility()">
+        <span>The parental leave has <strong>fully concluded.</strong> I am not submitting while the leave is still active.</span>
+      </label>
+      <label class="elig-row">
+        <input type="checkbox" id="elig2" onchange="checkEligibility()">
+        <span><strong>No Tier II or Tier III support was used</strong> during this leave. No agency, contractor, temp worker, or accelerated FT hire was engaged.</span>
+      </label>
+      <label class="elig-row">
+        <input type="checkbox" id="elig3" onchange="checkEligibility()">
+        <span>This was a <strong>parental leave.</strong> This bonus applies to parental leaves only.</span>
+      </label>
+    </div>
+    <div class="inelig-msg" id="ineligMsg">
+      This form is for Tier I parental leaves only, submitted after the leave has concluded. If any external coverage support was engaged during the leave, a bonus is not applicable under the current policy. Please connect with your P&amp;C Partner with any questions.
+    </div>
+  </div>
+
+  <!-- Section 1: Request Details -->
+  <div class="form-section locked" id="s1">
+    <div class="section-label"><span class="section-dot"></span>Request details</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Submitting manager (your full name)</label>
+        <input type="text" id="mgr-name" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label>Department / team</label>
+        <select>
+          <option value="">Select department</option>
+          <option>Admin / Exec</option>
+          <option>E-Com</option>
+          <option>Farm Costs</option>
+          <option>Finance</option>
+          <option>IT</option>
+          <option>Marketing</option>
+          <option>Ops</option>
+          <option>People and Culture</option>
+          <option>Product Dev</option>
+          <option>QA</option>
+          <option>Sales</option>
+          <option>Sustainability</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label>LT member</label>
+        <select>
+          <option value="">Select LT member</option>
+          <option>John Foraker, CEO</option>
+          <option>Larry Waldman, President &amp; CFO</option>
+          <option>Cassandra Curtis, Chief Innovation Officer</option>
+          <option>Cheryl Reyes, Chief Customer Officer</option>
+          <option>Katie Marston, Chief Marketing Officer</option>
+          <option>Genevieve Kelly, Chief Legal Officer</option>
+          <option>Chris Folena, Chief Accounting Officer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Date submitted</label>
+        <input type="date" id="date-submitted">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Leave Reference -->
+  <div class="form-section locked" id="s2">
+    <div class="section-label"><span class="section-dot"></span>Leave reference</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Employee who was on leave</label>
+        <input type="text" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label>Role / title</label>
+        <input type="text" placeholder="Title of role on leave">
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="field">
+        <label>Leave start date</label>
+        <input type="date" id="leave-start" onchange="calcDuration()">
+      </div>
+      <div class="field">
+        <label>Leave end date</label>
+        <input type="date" id="leave-end" onchange="calcDuration()">
+        <div class="helper">Must be today or earlier.</div>
+      </div>
+      <div class="field">
+        <label>Total leave duration</label>
+        <input type="text" id="leave-duration" placeholder="Auto-calculated" readonly style="background:#f5f8fc;color:#1d4f78;font-weight:600;cursor:default">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Who Absorbed the Work -->
+  <div class="form-section locked" id="s3">
+    <div class="section-label"><span class="section-dot"></span>Who absorbed the work?</div>
+    <p style="font-size:12px;color:#5a7080;margin-bottom:1rem;line-height:1.5">Add each team member who took on additional responsibilities. You can nominate one person or split the recognition across multiple contributors.</p>
+
+    <div class="absorber-list" id="absorberList">
+      <div class="absorber-row">
+        <div class="field">
+          <label>Full name <span class="req">*</span></label>
+          <input type="text" placeholder="Team member name">
+        </div>
+        <div class="field">
+          <label>Role / title <span class="req">*</span></label>
+          <input type="text" placeholder="e.g. Brand Manager">
+        </div>
+        <button class="absorber-remove" onclick="removeAbsorber(this)" title="Remove">&#215;</button>
+      </div>
+    </div>
+    <button class="add-absorber" onclick="addAbsorber()">+ Add another team member</button>
+
+    <div style="border-top:1px solid #e8eef4;margin:1.2rem 0 1rem"></div>
+
+    <div class="field">
+      <label>Describe the additional responsibilities absorbed <span class="req">*</span></label>
+      <textarea placeholder="What work shifted to this person or team? Be specific about scope and impact. e.g. Owned all weekly retail reporting, managed two vendor relationships, led weekly standups in addition to their existing project load..."></textarea>
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Estimated additional hours per week absorbed</label>
+        <select>
+          <option value="">Select a range</option>
+          <option>1-3 hours / week</option>
+          <option>4-6 hours / week</option>
+          <option>7-10 hours / week</option>
+          <option>10+ hours / week</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>How did this absorption affect team capacity or morale?</label>
+        <input type="text" placeholder="Optional context">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Bonus Request -->
+  <div class="form-section locked" id="s4">
+    <div class="section-label"><span class="section-dot"></span>Bonus request</div>
+
+    <div class="bonus-panel">
+      <div class="bonus-panel-label">Requested bonus amount</div>
+      <div class="bonus-row">
+        <div class="bonus-symbol">$</div>
+        <input type="number" class="bonus-input" id="bonus-amount" placeholder="0" min="0" max="10000" step="500" oninput="checkBonusCap()">
+        <div class="bonus-cap">Max $10,000</div>
+      </div>
+      <div class="bonus-cap-warn" id="bonusWarn">&#9888; The maximum bonus is $10,000. Please adjust your request.</div>
+      <div class="bonus-disclaimer">
+        <strong>Important:</strong> O'Farm does not promise or guarantee a bonus or any specific amount prior to the leave. All requests are subject to LT approval and final SOX approval. Do not discuss or imply a bonus with your team member before or during leave. All bonus discussions happen post-leave, once SOX approved.
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Justification for requested amount <span class="req">*</span></label>
+      <textarea placeholder="Help us understand why this amount reflects the contribution. Consider scope, duration, and impact. e.g. Over 18 weeks, this team member absorbed an estimated 8+ additional hours per week while maintaining their existing performance targets..."></textarea>
+    </div>
+
+    <div class="field" id="split-field" style="display:none">
+      <label>Describe how the bonus should be split</label>
+      <textarea rows="2" placeholder="e.g. $6,000 to [Name 1] who absorbed the majority of customer-facing work, $4,000 to [Name 2] who covered internal coordination..."></textarea>
+    </div>
+
+    <div class="info-note" style="margin-top:.85rem">
+      <strong>Reminder:</strong> This request is submitted only after the leave concludes. It should never be promised or implied during or before the leave period. The bonus is a post-leave recognition decision that requires SOX approval before payout.
+    </div>
+  </div>
+
+  <!-- Section 5: LT Alignment -->
+  <div class="form-section locked" id="s5">
+    <div class="section-label"><span class="section-dot"></span>Confirm LT alignment</div>
+    <p style="font-size:13px;color:#5a7080;margin-bottom:1.1rem;line-height:1.5">
+      This form requires sign-off from your LT member before SOX approval is requested. Once you submit, your P&amp;C Partner will take it from here and coordinate the approval and payout process.
+    </p>
+    <div class="approval-box">
+      <div class="approval-box-label">LT sponsor sign-off</div>
+      <div class="grid-2" style="gap:.75rem;margin-bottom:.65rem">
+        <div class="field" style="margin:0"><input type="text" placeholder="LT sponsor name"></div>
+        <div class="field" style="margin:0"><input type="date"></div>
+      </div>
+      <div class="radio-group">
+        <label class="radio-row"><input type="radio" name="lt-decision"> Approved</label>
+        <label class="radio-row"><input type="radio" name="lt-decision"> Approved with modifications</label>
+        <label class="radio-row"><input type="radio" name="lt-decision"> Declined</label>
+      </div>
+    </div>
+    <div class="field" style="margin-top:.85rem">
+      <label>Approval notes / conditions</label>
+      <textarea rows="2" placeholder="Any conditions, modifications, or notes attached to this approval..."></textarea>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="form-footer" id="formFooter">
+    <div class="footer-note">
+      By submitting, you confirm this request has been discussed with your LT sponsor and P&amp;C Partner, the leave has fully concluded, and no Tier II or Tier III coverage support was used. No bonus should be communicated to the team member until SOX approval is received. Questions? <a href="mailto:melissa@uponafarm.com">melissa@uponafarm.com</a>
+    </div>
+    <button class="btn-submit" onclick="submitForm()">Submit for approval</button>
+  </div>
+
+  <!-- Success screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">&#127881;</div>
+    <h2>Request submitted!</h2>
+    <p>Thank you for taking the time to recognize your team's hard work. Your P&amp;C Partner will be in touch shortly to move this through the SOX approval process.</p>
+    <div class="success-steps">
+      <h4>What happens next</h4>
+      <div class="success-step"><div class="step-num">1</div><span>P&amp;C Partner reviews and validates your request</span></div>
+      <div class="success-step"><div class="step-num">2</div><span>P&amp;C Partner requests SOX approval for payout</span></div>
+      <div class="success-step"><div class="step-num">3</div><span>P&amp;C Partner notifies you of the outcome and next steps</span></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// Set today as default date
+document.getElementById('date-submitted').valueAsDate = new Date();
+
+// Eligibility gate
+function checkEligibility() {
+  var c1 = document.getElementById('elig1').checked;
+  var c2 = document.getElementById('elig2').checked;
+  var c3 = document.getElementById('elig3').checked;
+  var sections = document.querySelectorAll('.form-section');
+  var footer = document.getElementById('formFooter');
+  var msg = document.getElementById('ineligMsg');
+  if (c1 && c2 && c3) {
+    sections.forEach(function(s) { s.classList.remove('locked'); });
+    footer.style.opacity = '1';
+    footer.style.pointerEvents = 'auto';
+    msg.style.display = 'none';
+  } else {
+    sections.forEach(function(s) { s.classList.add('locked'); });
+    footer.style.opacity = '.38';
+    footer.style.pointerEvents = 'none';
+    // Show ineligible hint only if user has interacted with check2 specifically
+    var anyChecked = c1 || c2 || c3;
+    msg.style.display = anyChecked ? 'block' : 'none';
+  }
+}
+
+// Lock footer initially
+document.getElementById('formFooter').style.opacity = '.38';
+document.getElementById('formFooter').style.pointerEvents = 'none';
+
+// Duration calc
+function calcDuration() {
+  var s = document.getElementById('leave-start').value;
+  var e = document.getElementById('leave-end').value;
+  var dur = document.getElementById('leave-duration');
+  if (s && e) {
+    var start = new Date(s), end = new Date(e);
+    var diff = end - start;
+    if (diff > 0) {
+      var days = Math.round(diff / 86400000);
+      var weeks = Math.floor(days / 7);
+      var rem = days % 7;
+      dur.value = weeks + ' week' + (weeks !== 1 ? 's' : '') + (rem ? ', ' + rem + ' day' + (rem !== 1 ? 's' : '') : '') + ' (' + days + ' days)';
+    } else {
+      dur.value = 'End date must be after start date';
+    }
+  }
+}
+
+// Absorber rows
+function addAbsorber() {
+  var list = document.getElementById('absorberList');
+  var row = document.createElement('div');
+  row.className = 'absorber-row';
+  row.innerHTML = '<div class="field"><label>Full name <span class="req">*</span></label><input type="text" placeholder="Team member name"></div><div class="field"><label>Role / title <span class="req">*</span></label><input type="text" placeholder="e.g. Brand Manager"></div><button class="absorber-remove" onclick="removeAbsorber(this)" title="Remove">&#215;</button>';
+  list.appendChild(row);
+  // Show split field when >1 absorber
+  updateSplitField();
+}
+function removeAbsorber(btn) {
+  var rows = document.querySelectorAll('.absorber-row');
+  if (rows.length > 1) { btn.closest('.absorber-row').remove(); }
+  updateSplitField();
+}
+function updateSplitField() {
+  var count = document.querySelectorAll('.absorber-row').length;
+  document.getElementById('split-field').style.display = count > 1 ? 'block' : 'none';
+}
+
+// Bonus cap
+function checkBonusCap() {
+  var val = parseFloat(document.getElementById('bonus-amount').value);
+  document.getElementById('bonusWarn').style.display = val > 10000 ? 'block' : 'none';
+}
+
+// Radio rows
+document.querySelectorAll('.radio-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var inp = row.querySelector('input');
+    if (inp) { inp.checked = true; }
+    var grp = row.closest('.radio-group');
+    if (grp) { grp.querySelectorAll('.radio-row').forEach(function(r) { r.classList.remove('selected'); }); }
+    row.classList.add('selected');
+  });
+});
+
+// Field helpers
+function g(el) { return el ? el.value.trim() : ''; }
+function gId(id) { return g(document.getElementById(id)); }
+function getField(label, value) { return value ? label + ': ' + value + '\n' : ''; }
+
+// Submit
+function submitForm() {
+  var bonus = parseFloat(document.getElementById('bonus-amount').value);
+  if (bonus > 10000) { alert('Please adjust the bonus amount to $10,000 or below before submitting.'); return; }
+
+  var inputs = document.querySelectorAll('input[type=text]');
+  var selects = document.querySelectorAll('select');
+  var dates = document.querySelectorAll('input[type=date]');
+  var textareas = document.querySelectorAll('textarea');
+
+  // Absorbers
+  var absorberRows = document.querySelectorAll('.absorber-row');
+  var absorberLines = [];
+  absorberRows.forEach(function(row) {
+    var inps = row.querySelectorAll('input[type=text]');
+    var name = inps[0] ? inps[0].value.trim() : '';
+    var title = inps[1] ? inps[1].value.trim() : '';
+    if (name) absorberLines.push(name + (title ? ' (' + title + ')' : ''));
+  });
+
+  var ltDecision = '';
+  var ltRow = document.querySelector('.radio-row.selected');
+  if (ltRow) ltDecision = ltRow.textContent.trim();
+
+  var body = '';
+  body += 'LEAVE ABSORPTION BONUS REQUEST\n';
+  body += 'Once Upon a Farm, PBC\n';
+  body += '________________________________________________\n\n';
+
+  body += '========  REQUEST DETAILS  ========\n\n';
+  body += getField('Submitting manager', gId('mgr-name'));
+  body += getField('Department / team', g(selects[0]));
+  body += getField('LT member', g(selects[1]));
+  body += getField('Date submitted', gId('date-submitted'));
+
+  body += '\n========  LEAVE REFERENCE  ========\n\n';
+  body += getField('Employee on leave', g(inputs[2]));
+  body += getField('Role / title', g(inputs[3]));
+  body += getField('P&C Partner', g(inputs[4]));
+  body += getField('Leave start', gId('leave-start'));
+  body += getField('Leave end', gId('leave-end'));
+  body += getField('Total duration', gId('leave-duration'));
+
+  body += '\n========  ABSORPTION  ========\n\n';
+  body += getField('Team member(s)', absorberLines.join('; '));
+  body += getField('Responsibilities absorbed', g(textareas[0]));
+  body += getField('Additional hours per week', g(selects[2]));
+  body += getField('Capacity / morale impact', g(inputs[inputs.length - 4]));
+
+  body += '\n========  BONUS REQUEST  ========\n\n';
+  body += getField('Requested amount', bonus ? '$' + bonus.toLocaleString('en-US') : '');
+  body += getField('Justification', g(textareas[1]));
+  if (absorberLines.length > 1) { body += getField('Split allocation', g(textareas[2])); }
+
+  body += '\n========  LT ALIGNMENT  ========\n\n';
+  body += getField('LT sponsor', g(inputs[inputs.length - 2]));
+  body += getField('LT decision', ltDecision);
+  body += getField('Approval notes', g(textareas[textareas.length - 1]));
+
+  body += '________________________________________________\n';
+  body += 'Submitted via the O\'Farm Leave Absorption Bonus Request Form.';
+
+  var mgr = gId('mgr-name');
+  var dt = gId('date-submitted');
+  var subject = 'Leave Absorption Bonus Request' + (mgr ? ': ' + mgr : '') + (dt ? ' (' + dt + ')' : '');
+  window.location.href = 'mailto:melissa@uponafarm.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  // Show success
+  document.querySelectorAll('.form-section, .hero-callout, .alert, .eligibility-card, .form-footer').forEach(function(el) { el.style.display = 'none'; });
+  document.getElementById('successScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
